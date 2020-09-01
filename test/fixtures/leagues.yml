@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  league_id: 1
+  name: MyString
+  type: 
+  country: MyString
+  season: 1
+  season_start: MyString
+  season_end: MyString
+  logo: MyString
+  flag: MyString
+  standings: 1
+  is_current: 1
+
+two:
+  league_id: 1
+  name: MyString
+  type: 
+  country: MyString
+  season: 1
+  season_start: MyString
+  season_end: MyString
+  logo: MyString
+  flag: MyString
+  standings: 1
+  is_current: 1
