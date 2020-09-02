@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :users
   post '/signup', to: 'users#signup'
   post '/login', to: 'auth#login'
+  get '/friends/:id', to: 'users#friends'
   
 end

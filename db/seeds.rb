@@ -70,7 +70,8 @@ def leagues
         logo: league["logo"],
         flag: league["flag"],
         standings: league["standings"],
-        is_current: league["is_current"]
+        is_current: league["is_current"],
+        is_favorite: false
       )
     end
   else

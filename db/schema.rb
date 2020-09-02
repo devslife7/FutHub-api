@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_09_01_225301) do
     t.string "flag"
     t.integer "standings"
     t.integer "is_current"
+    t.boolean "is_favorite"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

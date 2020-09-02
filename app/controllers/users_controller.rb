@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:index, :signup]
+  skip_before_action :authorized, only: [:index, :friends, :signup]
 
   def index
     users = User.all
@@ -9,6 +9,16 @@ class UsersController < ApplicationController
     end
 
     render json: { users: serializedUsers }
+  end
+
+  def friends
+    user = User.find_by(id: params[:id])
+
+    serializedFriends = user.friends.map do |user|
+      UserSerializer.new(user)
+    end
+
+    render json: { friends: serializedFriends }, status: :accepted
   end
 
   def signup

@@ -12,6 +12,7 @@ class CreateLeagues < ActiveRecord::Migration[6.0]
       t.string :flag
       t.integer :standings
       t.integer :is_current
+      t.boolean :is_favorite
 
       t.timestamps
     end
