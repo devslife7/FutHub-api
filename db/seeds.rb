@@ -58,7 +58,6 @@ def leagues
     leagues = data["api"]["leagues"]
     
     leagues.map do |league|
-      # puts league["type"]
       League.create(
         league_id: league["league_id"],
         name: league["name"],
@@ -71,11 +70,10 @@ def leagues
         flag: league["flag"],
         standings: league["standings"],
         is_current: league["is_current"],
-        is_favorite: false
       )
     end
   else
-    puts "league data is null"
+    puts "league data is not valid"
   end
 end
 

@@ -5,7 +5,8 @@ class AuthController < ApplicationController
     user = User.find_by(username: login_params[:username])
       if user && user.authenticate(login_params[:password])
         token = encode_token({ user_id: user.id })
-        render json: { user: UserSerializer.new(user), token: token }, status: :accepted
+        
+        render json: { user: user, token: token }, except: [:created_at, :updated_at, :password_digest]
       else
         render json: { error: 'Invalid username or password' }, status: :unauthorized
       end

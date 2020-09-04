@@ -1,39 +1,41 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:index, :friends, :signup, :update]
+  skip_before_action :authorized, only: [:index, :show, :signup, :update]
 
   def index
     users = User.all
-
-    # serializedUsers = users.map do |user|
-    #   UserSerializer.new(user)
-    # end
-
-    # render json: { users: serializedUsers }
-    render json: { users: users }
+    render json: users,
+      except: [:created_at, :updated_at, :password_digest],
+      include: [
+        :friends,
+        :user_leagues => {
+          only: [:id],
+          include: [:league]
+        }
+      ]
   end
 
-  def friends
-    user = User.find_by(id: params[:id])
-
-    serializedFriends = user.friends.map do |user|
-      UserSerializer.new(user)
-    end
-
-    render json: { friends: serializedFriends }, status: :accepted
+  def show
+    user = User.find_by( id: params[:id] )
+    render json: user,
+      except: [:created_at, :updated_at, :password_digest],
+      include: [
+        :friends,
+        :user_leagues => {
+          only: [:id],
+          include: [
+            :league => { except: [:created_at, :updated_at] }
+          ]
+        }]
   end
   
   def update
     user = User.find_by( id: params[:id] )
     
     if user
-      user.name = update_params[:name]
-      user.username = update_params[:username]
-      user.save
-      # user.update(update_params)
-      # byebug
-      render json: { user: UserSerializer.new(user) }, status: :accepted
+      user.update(update_params)
+      render json: user, except: [:created_at, :updated_at, :password_digest]
     else
-        render json: { error: 'user not found' }, status: :not_acceptable
+      render json: { error: 'user not found' }
     end
   end
 
@@ -42,7 +44,9 @@ class UsersController < ApplicationController
 
     if user.valid?
       user.save
-      render json: { user: UserSerializer.new(user), token: encode_token({ user_id: user.id })}
+      token = encode_token({ user_id: user.id })
+      
+      render json: { user: user, token: token }, except: [:created_at, :updated_at, :password_digest]
     else
       render json: { error: user.errors }
     end

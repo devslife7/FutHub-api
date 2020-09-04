@@ -1,5 +1,8 @@
 class League < ApplicationRecord
 
+  has_many :user_leagues
+  has_many :user, :through => :user_leagues
+
   @popular_countries = ['Spain', 'USA', 'England', 'Germany', 'Italy', 'France', 'Brazil', 'Mexico']
 
   def self.leaguePopular
