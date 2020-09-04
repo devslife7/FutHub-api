@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :destroy]
 
   def create
     user = User.find_by(id: friendship_params[:user_id])
@@ -17,7 +17,11 @@ class FriendshipsController < ApplicationController
         render json: { error: 'friendship could not be saved'}
       end
     end
+  end
 
+  def destroy
+    byebug
+    
   end
 
   private

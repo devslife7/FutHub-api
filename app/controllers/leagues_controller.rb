@@ -4,9 +4,7 @@ class LeaguesController < ApplicationController
   def index
     leaguesAll = League.all
 
-    render json: { 
-      all: leaguesAll
-    }
+    render json: { all: leaguesAll }
   end
 
   def update
