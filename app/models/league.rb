@@ -6,11 +6,11 @@ class League < ApplicationRecord
   @popular_countries = ['Spain', 'USA', 'England', 'Germany', 'Italy', 'France', 'Brazil', 'Mexico']
 
   def self.leaguePopular
-    popular_league_ids = [530, 775, 294, 524, 754, 891, 514, 525]
+    popular_league_ids = [530, 775, 294, 524, 754, 891, 514, 525, 584]
     self.all.select { |league| popular_league_ids.include?(league.league_id) }
   end
 
-  def self.leagueWorld
+  def self.leagueInternational
     self.all.select { |league| league.country === "World" }
   end
 

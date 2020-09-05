@@ -19,7 +19,9 @@ class UsersController < ApplicationController
     render json: user,
       except: [:created_at, :updated_at, :password_digest],
       include: [
-        :friends,
+        :friends => {
+          except: [:created_at, :updated_at]
+        },
         :user_leagues => {
           only: [:id],
           include: [
@@ -33,7 +35,16 @@ class UsersController < ApplicationController
     
     if user
       user.update(update_params)
-      render json: user, except: [:created_at, :updated_at, :password_digest]
+      render json: user,
+        except: [:created_at, :updated_at, :password_digest],
+        include: [
+          :friends,
+          :user_leagues => {
+            only: [:id],
+            include: [
+              :league => { except: [:created_at, :updated_at] }
+            ]
+          }]
     else
       render json: { error: 'user not found' }
     end
@@ -45,8 +56,17 @@ class UsersController < ApplicationController
     if user.valid?
       user.save
       token = encode_token({ user_id: user.id })
-      
-      render json: { user: user, token: token }, except: [:created_at, :updated_at, :password_digest]
+
+      render json: { user: user, token: token },
+        except: [:created_at, :updated_at, :password_digest],
+        include: [
+          :friends,
+          :user_leagues => {
+            only: [:id],
+            include: [
+              :league => { except: [:created_at, :updated_at] }
+            ]
+          }]
     else
       render json: { error: user.errors }
     end

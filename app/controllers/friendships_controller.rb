@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :destroy]
+  skip_before_action :authorized, only: [:create, :remove]
 
   def create
     user = User.find_by(id: friendship_params[:user_id])
@@ -19,15 +19,28 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def destroy
-    byebug
+  def remove
+    userId = friendship_params[:user_id]
+    friendId = friendship_params[:friend_id]
+
+    friendship1 = Friendship.all.find { |rel| rel.user_id === userId && rel.friend_id === friendId }
+    friendship2 = Friendship.all.find { |rel| rel.user_id === friendId && rel.friend_id === userId }
+
+    if friendship1 && friendship2
+      friendship1.destroy
+      friendship2.destroy
+
+      render json: { message: "Friend relationship was removed" }
+    else
+      render json: { error: "Friend relationships could not be found"}
+    end
     
   end
 
   private
 
   def friendship_params
-    params.require(:friendship).permit(:friend_id, :user_id)
+    params.require(:friendship).permit(:user_id, :friend_id)
   end
 
 end
