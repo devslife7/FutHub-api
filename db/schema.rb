@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_04_031011) do
+ActiveRecord::Schema.define(version: 2020_09_08_023815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,20 @@ ActiveRecord::Schema.define(version: 2020_09_04_031011) do
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "friend_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "sender"
+    t.integer "match_id"
+    t.string "homeTeamName"
+    t.string "awayTeamName"
+    t.string "homeTeamLogo"
+    t.string "awayTeamLogo"
+    t.string "location"
+    t.string "date"
+    t.integer "time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -38,6 +52,15 @@ ActiveRecord::Schema.define(version: 2020_09_04_031011) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_invitations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "invitation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invitation_id"], name: "index_user_invitations_on_invitation_id"
+    t.index ["user_id"], name: "index_user_invitations_on_user_id"
+  end
+
   create_table "user_leagues", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "league_id", null: false
@@ -45,6 +68,15 @@ ActiveRecord::Schema.define(version: 2020_09_04_031011) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["league_id"], name: "index_user_leagues_on_league_id"
     t.index ["user_id"], name: "index_user_leagues_on_user_id"
+  end
+
+  create_table "user_watchparties", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "watchparty_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_watchparties_on_user_id"
+    t.index ["watchparty_id"], name: "index_user_watchparties_on_watchparty_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,6 +88,19 @@ ActiveRecord::Schema.define(version: 2020_09_04_031011) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "watchparties", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.integer "time"
+    t.string "location"
+    t.string "creator_name"
+  end
+
+  add_foreign_key "user_invitations", "invitations"
+  add_foreign_key "user_invitations", "users"
   add_foreign_key "user_leagues", "leagues"
   add_foreign_key "user_leagues", "users"
+  add_foreign_key "user_watchparties", "users"
+  add_foreign_key "user_watchparties", "watchparties"
 end

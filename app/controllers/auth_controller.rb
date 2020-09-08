@@ -2,7 +2,6 @@ class AuthController < ApplicationController
   skip_before_action :authorized, only: [:login]
 
   def login
-    # byebug
     user = User.find_by(username: login_params[:username])
       if user && user.authenticate(login_params[:password])
         token = encode_token({ user_id: user.id })
@@ -10,6 +9,8 @@ class AuthController < ApplicationController
         render json: { user: user, token: token },
           except: [:created_at, :updated_at, :password_digest],
           include: [
+            :invitations,
+            :watchparties,
             :friends,
             :user_leagues => {
               only: [:id],

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :user_invitations
+  resources :invitations
+  resources :user_watchparties
+  resources :watchparties
   resources :user_leagues, only: [:create]
   resources :friendships
   resources :leagues, only: [:index]
@@ -15,5 +19,7 @@ Rails.application.routes.draw do
 
   post '/favLeagues/add', to: 'user_leagues#create'
   delete '/favLeagues/remove/:id', to: 'user_leagues#destroy'
+
+  get 'fixtures/date', to: 'api_calls#fixtures_by_date'
   
 end

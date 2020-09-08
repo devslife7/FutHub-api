@@ -6,6 +6,8 @@ class UsersController < ApplicationController
     render json: users,
       except: [:created_at, :updated_at, :password_digest],
       include: [
+        :invitations,
+        :watchparties,
         :friends,
         :user_leagues => {
           only: [:id],
@@ -16,9 +18,12 @@ class UsersController < ApplicationController
 
   def show
     user = User.find_by( id: params[:id] )
+
     render json: user,
       except: [:created_at, :updated_at, :password_digest],
       include: [
+        :invitations,
+        :watchparties,
         :friends => {
           except: [:created_at, :updated_at]
         },
@@ -27,7 +32,8 @@ class UsersController < ApplicationController
           include: [
             :league => { except: [:created_at, :updated_at] }
           ]
-        }]
+        },
+      ]
   end
   
   def update
@@ -38,6 +44,8 @@ class UsersController < ApplicationController
       render json: user,
         except: [:created_at, :updated_at, :password_digest],
         include: [
+          :invitations,
+          :watchparties,
           :friends,
           :user_leagues => {
             only: [:id],
@@ -60,6 +68,8 @@ class UsersController < ApplicationController
       render json: { user: user, token: token },
         except: [:created_at, :updated_at, :password_digest],
         include: [
+          :invitations,
+          :watchparties,
           :friends,
           :user_leagues => {
             only: [:id],
