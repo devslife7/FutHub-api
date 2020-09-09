@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:index, :show, :signup, :update]
+  skip_before_action :authorized, only: [:index, :show, :signup, :update, :upload_avatar]
 
   def index
     users = User.all
@@ -8,7 +8,9 @@ class UsersController < ApplicationController
       include: [
         :invitations,
         :watchparties,
-        :friends,
+        :friends => {
+          except: [:created_at, :updated_at, :password_digest]
+        },
         :user_leagues => {
           only: [:id],
           include: [:league]
@@ -25,7 +27,7 @@ class UsersController < ApplicationController
         :invitations,
         :watchparties,
         :friends => {
-          except: [:created_at, :updated_at]
+          except: [:created_at, :updated_at, :password_digest]
         },
         :user_leagues => {
           only: [:id],
@@ -46,7 +48,9 @@ class UsersController < ApplicationController
         include: [
           :invitations,
           :watchparties,
-          :friends,
+          :friends => {
+            except: [:created_at, :updated_at, :password_digest]
+          },
           :user_leagues => {
             only: [:id],
             include: [
@@ -70,7 +74,9 @@ class UsersController < ApplicationController
         include: [
           :invitations,
           :watchparties,
-          :friends,
+          :friends => {
+            except: [:created_at, :updated_at, :password_digest]
+          },
           :user_leagues => {
             only: [:id],
             include: [
@@ -82,6 +88,33 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload_avatar
+    user = User.find_by(id: params[:id])
+
+    if user
+      user.avatar.attach(params["avatar"])
+
+      photo = url_for(user.avatar)
+      user.update(profile_img: photo)
+
+      # render json: user
+      render json: user,
+        except: [:created_at, :updated_at, :password_digest],
+        include: [
+          :invitations,
+          :watchparties,
+          :friends,
+          :user_leagues => {
+            only: [:id],
+            include: [
+              :league => { except: [:created_at, :updated_at] }
+            ]
+          }]
+    else
+      render json: { message: 'user could not be found'}
+    end
+  end
+
   private
 
   def user_params
@@ -89,7 +122,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-      params.require(:user).permit( :name, :username )
+      params.require(:user).permit( :name, :username, :avatar )
   end
 
 end

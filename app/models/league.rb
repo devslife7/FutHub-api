@@ -6,7 +6,9 @@ class League < ApplicationRecord
   @popular_countries = ['Spain', 'USA', 'England', 'Germany', 'Italy', 'France', 'Brazil', 'Mexico']
 
   def self.leaguePopular
-    popular_league_ids = [530, 775, 294, 524, 754, 891, 514, 525, 584]
+    # popular_league_ids = [530, 775, 294, 524, 754, 891, 514, 525, 584]
+    # popular_league_ids = [885, 941, 585, 901, 869, 964, 890, 780, 773]
+    popular_league_ids = [2771, 2833, 1264, 2790, 2755, 2857, 2777, 2664, 2656]
     self.all.select { |league| popular_league_ids.include?(league.league_id) }
   end
 

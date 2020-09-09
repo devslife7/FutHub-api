@@ -11,7 +11,9 @@ class AuthController < ApplicationController
           include: [
             :invitations,
             :watchparties,
-            :friends,
+            :friends => {
+              except: [:created_at, :updated_at, :password_digest]
+            },
             :user_leagues => {
               only: [:id],
               include: [

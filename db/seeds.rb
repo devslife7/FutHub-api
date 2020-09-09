@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
+UserLeague.destroy_all
+UserInvitation.destroy_all
+UserWatchparty.destroy_all
+Watchparty.destroy_all
+Invitation.destroy_all
 League.destroy_all
 User.destroy_all
 Friendship.destroy_all
@@ -52,7 +56,7 @@ User.create(name: 'Matteo', username: "matteo123", password: "password")
 
 def leagues
   headers = {"X-RapidAPI-Key": "f1b01111bamsh60c54da50b0a770p1059c7jsn4c82133f9b38"}
-  data = JSON.parse(RestClient.get("https://api-football-v1.p.rapidapi.com/v2/leagues/season/2019", headers))
+  data = JSON.parse(RestClient.get("https://api-football-v1.p.rapidapi.com/v2/leagues/season/2020", headers))
   
   if !data.nil?
     leagues = data["api"]["leagues"]

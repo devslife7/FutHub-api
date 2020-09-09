@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post '/favLeagues/add', to: 'user_leagues#create'
   delete '/favLeagues/remove/:id', to: 'user_leagues#destroy'
 
-  get 'fixtures/date', to: 'api_calls#fixtures_by_date'
+  post 'fixtures/date', to: 'api_calls#fixtures_by_date'
+
+  patch '/uploadAvatar/:id', to: 'users#upload_avatar'
   
 end

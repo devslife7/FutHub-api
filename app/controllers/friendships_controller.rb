@@ -12,7 +12,7 @@ class FriendshipsController < ApplicationController
       friendship2 = friend.friendships.build(friend_id: user.id)
 
       if friendship.save && friendship2.save
-        render json: { message: 'friendship was successfully created'}
+        render json: friend, except: [:created_at, :updated_at, :password_digest]
       else
         render json: { error: 'friendship could not be saved'}
       end
