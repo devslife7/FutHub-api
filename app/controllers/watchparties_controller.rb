@@ -62,7 +62,7 @@ class WatchpartiesController < ApplicationController
       watchparty.destroy
       render json: { message: 'watchparty was deleted' }
     else
-      render json: { message: 'watchparty could not be found' }
+      render json: { message: 'watchparty was not found' }
     end
   end
 
