@@ -1,5 +1,5 @@
 class WatchpartiesController < ApplicationController
-  skip_before_action :authorized, only: [:create, :show, :destroy]
+  skip_before_action :authorized, only: [:create, :show, :update, :destroy]
 
   def create
     watchparty = Watchparty.new(watchparties_params)
@@ -45,6 +45,17 @@ class WatchpartiesController < ApplicationController
     end
   end
 
+  def update
+    watchparty = Watchparty.find_by(id: params[:id])
+
+    if watchparty
+      watchparty.update(update_params)
+      render json: watchparty
+    else
+      render json: { error: 'Watch party could not be found'}
+    end
+  end
+
   def destroy
     watchparty = Watchparty.find_by(id: params[:id])
     if watchparty
@@ -59,5 +70,9 @@ class WatchpartiesController < ApplicationController
 
   def watchparties_params
     params.require(:watchparty).permit(:name, :time, :timestamp, :location, :creator_name, :league_name, :league_logo, :home_team_name, :home_team_logo, :away_team_name, :away_team_logo)
+  end
+
+  def update_params
+    params.require(:watchparty).permit(:name, :time, :location)
   end
 end
