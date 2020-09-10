@@ -6,9 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
 UserLeague.destroy_all
 UserInvitation.destroy_all
 UserWatchparty.destroy_all
+Team.destroy_all
 Watchparty.destroy_all
 Invitation.destroy_all
 League.destroy_all
@@ -52,6 +54,11 @@ User.create(name: 'Ian', username: "ian123", password: "password")
 User.create(name: 'Tien', username: "tien123", password: "password")
 User.create(name: 'Jr', username: "Sr123", password: "password")
 User.create(name: 'Matteo', username: "matteo123", password: "password")
+User.create(name: 'Mario', username: "mario123", password: "password")
+User.create(name: 'Esdras', username: "esdras123", password: "password")
+User.create(name: 'Pablo', username: "pablo123", password: "password")
+User.create(name: 'Briam', username: "briam123", password: "password")
+User.create(name: 'David C', username: "davidc123", password: "password")
 
 
 def leagues
@@ -80,5 +87,33 @@ def leagues
     puts "league data is not valid"
   end
 end
+
+def teams
+  championsLeagueId = 530
+
+
+  headers = {"X-RapidAPI-Key": "f1b01111bamsh60c54da50b0a770p1059c7jsn4c82133f9b38"}
+  data = JSON.parse(RestClient.get("https://api-football-v1.p.rapidapi.com/v2/teams/league/#{championsLeagueId}", headers))
+
+  teams = data["api"]["teams"]
+
+  teams.map do |team|
+    Team.create(
+      team_id: team["team_id"],
+      name: team["name"],
+      logo: team["logo"],
+      country: team["country"],
+      is_national: team["is_national"],
+      founded: team["founded"],
+      venue_name: team["venue_name"],
+      venue_surface: team["venue_surface"],
+      venue_address: team["venue_address"],
+      venue_city: team["venue_city"],
+      venue_capacity: team["venue_capacity"]
+    )
+  end
+end
+
+teams
 
 leagues

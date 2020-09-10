@@ -21,7 +21,7 @@ class AuthController < ApplicationController
               ]
             }]
       else
-        render json: { error: 'Invalid username or password' }, status: :unauthorized
+        render json: { error: 'Invalid username or password' }
       end
   end
 

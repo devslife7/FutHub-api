@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_id: 1
+  name: MyString
+  logo: MyString
+  country: MyString
+  is_national: false
+  founded: 1
+  venue_name: MyString
+  venue_surface: MyString
+  venue_address: MyString
+  venue_city: MyString
+  venue_capacity: 1
+
+two:
+  team_id: 1
+  name: MyString
+  logo: MyString
+  country: MyString
+  is_national: false
+  founded: 1
+  venue_name: MyString
+  venue_surface: MyString
+  venue_address: MyString
+  venue_city: MyString
+  venue_capacity: 1

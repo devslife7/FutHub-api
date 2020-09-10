@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_one_attached :avatar
 
+  belongs_to :team, required: false
   has_many :user_leagues
   has_many :leagues, :through => :user_leagues
   has_many :friendships

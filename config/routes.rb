@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :teams
   resources :user_invitations
   resources :invitations
   resources :user_watchparties
@@ -23,5 +24,7 @@ Rails.application.routes.draw do
   post 'fixtures/date', to: 'api_calls#fixtures_by_date'
 
   patch '/uploadAvatar/:id', to: 'users#upload_avatar'
+
+  post '/user_invitations/remove', to: 'user_invitations#remove'
   
 end

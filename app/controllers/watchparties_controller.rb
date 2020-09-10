@@ -1,5 +1,5 @@
 class WatchpartiesController < ApplicationController
-  skip_before_action :authorized, only: [:create, :destroy]
+  skip_before_action :authorized, only: [:create, :show, :destroy]
 
   def create
     watchparty = Watchparty.new(watchparties_params)
@@ -10,10 +10,18 @@ class WatchpartiesController < ApplicationController
       watchparty.save
       user.watchparties << watchparty
 
+      # byebug
+
       invitation = Invitation.create(
         sender: watchparties_params[:creator_name],
         location: watchparties_params[:location],
-        time: watchparties_params[:time]
+        time: watchparties_params[:time],
+        watchparty_id: watchparty.id,
+        timestamp: watchparties_params[:timestamp],
+        home_team_name: watchparties_params[:home_team_name],
+        home_team_logo: watchparties_params[:home_team_logo],
+        away_team_name: watchparties_params[:away_team_name],
+        away_team_logo: watchparties_params[:away_team_logo]
       )
 
       friend_ids.map do |id|
@@ -24,6 +32,16 @@ class WatchpartiesController < ApplicationController
       render json: watchparty
     else
       render json: { message: 'party could not be created' }
+    end
+  end
+
+  def show
+    wp = Watchparty.find_by(id: params[:id])
+
+    if wp
+      render json: wp
+    else
+      render json: { message: 'party could not be found'}
     end
   end
 
@@ -40,6 +58,6 @@ class WatchpartiesController < ApplicationController
   private
 
   def watchparties_params
-    params.require(:watchparty).permit(:name, :time, :location, :creator_name)
+    params.require(:watchparty).permit(:name, :time, :timestamp, :location, :creator_name, :league_name, :league_logo, :home_team_name, :home_team_logo, :away_team_name, :away_team_logo)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_144245) do
+ActiveRecord::Schema.define(version: 2020_09_09_141816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 2020_09_08_144245) do
 
   create_table "invitations", force: :cascade do |t|
     t.string "sender"
-    t.integer "match_id"
-    t.string "homeTeamName"
-    t.string "awayTeamName"
-    t.string "homeTeamLogo"
-    t.string "awayTeamLogo"
     t.string "location"
-    t.string "date"
+    t.integer "watchparty_id"
     t.integer "time"
+    t.string "timestamp"
+    t.string "home_team_name"
+    t.string "home_team_logo"
+    t.string "away_team_name"
+    t.string "away_team_logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -69,6 +69,22 @@ ActiveRecord::Schema.define(version: 2020_09_08_144245) do
     t.string "flag"
     t.integer "standings"
     t.integer "is_current"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.integer "team_id"
+    t.string "name"
+    t.string "logo"
+    t.string "country"
+    t.boolean "is_national"
+    t.integer "founded"
+    t.string "venue_name"
+    t.string "venue_surface"
+    t.string "venue_address"
+    t.string "venue_city"
+    t.integer "venue_capacity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -105,17 +121,26 @@ ActiveRecord::Schema.define(version: 2020_09_08_144245) do
     t.string "username"
     t.string "password_digest"
     t.string "profile_img"
+    t.integer "team_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "watchparties", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.integer "time"
+    t.string "time"
+    t.integer "timestamp"
     t.string "location"
     t.string "creator_name"
+    t.integer "creator_id"
+    t.string "league_name"
+    t.string "league_logo"
+    t.string "home_team_name"
+    t.string "home_team_logo"
+    t.string "away_team_name"
+    t.string "away_team_logo"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
