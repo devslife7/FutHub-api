@@ -97,7 +97,6 @@ class UsersController < ApplicationController
       photo = url_for(user.avatar)
       user.update(profile_img: photo)
 
-      # render json: user
       render json: user,
         except: [:created_at, :updated_at, :password_digest],
         include: [
