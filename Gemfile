@@ -20,7 +20,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rest-client'
 # Using JSON to parse json
 gem 'json'
-#Using JSON WEB TOKENS for authenntication
+# Using JSON WEB TOKENS for authenntication
 gem 'jwt'
 
 # Use Active Storage variant

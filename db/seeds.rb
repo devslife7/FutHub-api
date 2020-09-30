@@ -91,7 +91,6 @@ end
 def teams
   championsLeagueId = 530
 
-
   headers = {"X-RapidAPI-Key": "f1b01111bamsh60c54da50b0a770p1059c7jsn4c82133f9b38"}
   data = JSON.parse(RestClient.get("https://api-football-v1.p.rapidapi.com/v2/teams/league/#{championsLeagueId}", headers))
 
