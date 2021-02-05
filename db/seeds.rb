@@ -114,5 +114,6 @@ def teams
 end
 
 teams
-
 leagues
+
+puts "Succesfull Seed!!"
