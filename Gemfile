@@ -50,5 +50,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Enables dotEnv variables
 gem 'dotenv-rails'
 
-# Integrate with AWS S3
+# Integrate with AWS S3 in this case to store photos
 gem 'aws-sdk-s3', require: false
