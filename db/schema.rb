@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_141816) do
-
+ActiveRecord::Schema[7.0].define(version: 2020_09_09_141816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -32,15 +31,15 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.text "metadata"
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "friend_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -53,8 +52,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.string "home_team_logo"
     t.string "away_team_name"
     t.string "away_team_logo"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "leagues", force: :cascade do |t|
@@ -69,8 +68,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.string "flag"
     t.integer "standings"
     t.integer "is_current"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -85,33 +84,33 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.string "venue_address"
     t.string "venue_city"
     t.integer "venue_capacity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_invitations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "invitation_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.integer "invitation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["invitation_id"], name: "index_user_invitations_on_invitation_id"
     t.index ["user_id"], name: "index_user_invitations_on_user_id"
   end
 
   create_table "user_leagues", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "league_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.integer "league_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["league_id"], name: "index_user_leagues_on_league_id"
     t.index ["user_id"], name: "index_user_leagues_on_user_id"
   end
 
   create_table "user_watchparties", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "watchparty_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.integer "watchparty_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_watchparties_on_user_id"
     t.index ["watchparty_id"], name: "index_user_watchparties_on_watchparty_id"
   end
@@ -122,8 +121,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.string "password_digest"
     t.string "profile_img"
     t.integer "team_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "watchparties", force: :cascade do |t|
@@ -139,8 +138,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_141816) do
     t.string "home_team_logo"
     t.string "away_team_name"
     t.string "away_team_logo"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

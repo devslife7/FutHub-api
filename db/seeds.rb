@@ -63,7 +63,14 @@ User.create(name: 'David C', username: "davidc123", password: "password")
 
 def leagues
   headers = {"X-RapidAPI-Key": ENV['API_KEY']}
-  data = JSON.parse(RestClient.get("https://api-football-v1.p.rapidapi.com/v2/leagues/season/2020", headers))
+  url = "https://api-football-v1.p.rapidapi.com/v2/leagues/season/2020"
+  response = RestClient::Request.execute(
+    :url => url,
+    :method => :get,
+    :headers => headers,
+    :verify_ssl => false
+  )
+  data = JSON.parse(response)
   
   if !data.nil?
     leagues = data["api"]["leagues"]
@@ -91,8 +98,15 @@ end
 def teams
   championsLeagueId = 530
 
+  url = "https://api-football-v1.p.rapidapi.com/v2/teams/league/#{championsLeagueId}"
   headers = {"X-RapidAPI-Key": ENV['API_KEY']}
-  data = JSON.parse(RestClient.get("https://api-football-v1.p.rapidapi.com/v2/teams/league/#{championsLeagueId}", headers))
+  response = RestClient::Request.execute(
+    :url => url,
+    :method => :get,
+    :headers => headers,
+    :verify_ssl => false
+  )
+  data = JSON.parse(response)
 
   teams = data["api"]["teams"]
 

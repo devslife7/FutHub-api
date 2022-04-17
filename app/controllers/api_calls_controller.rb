@@ -2,10 +2,15 @@ class ApiCallsController < ApplicationController
   skip_before_action :authorized, only: [:fixtures_by_date]
 
   def fixtures_by_date
+    url = "https://api-football-v1.p.rapidapi.com/v3/fixtures?date=#{params[:fetchDate]}"
     headers = {"X-RapidAPI-Key": ENV['API_KEY']}
-    data = JSON.parse(
-      RestClient.get("https://api-football-v1.p.rapidapi.com/v3/fixtures?date=#{params[:fetchDate]}", headers)
+    response = RestClient::Request.execute(
+      :url => url,
+      :method => :get,
+      :headers => headers,
+      :verify_ssl => false
     )
+    data = JSON.parse( response )
 
     if data
       matches = data["response"]
