@@ -17,6 +17,7 @@ League.destroy_all
 User.destroy_all
 Friendship.destroy_all
 
+User.create(name: 'Demo', username: "demo", password: "demo")
 User.create(name: 'Marcos', username: "marcos123", password: "password")
 User.create(name: 'Andy', username: "andy123", password: "password")
 User.create(name: 'Danny', username: "danny123", password: "password")
