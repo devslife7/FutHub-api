@@ -26,5 +26,7 @@ Rails.application.routes.draw do
   patch '/uploadAvatar/:id', to: 'users#upload_avatar'
 
   post '/user_invitations/remove', to: 'user_invitations#remove'
+
+  get '/wakeup', to: 'auth#wakeup'
   
 end
