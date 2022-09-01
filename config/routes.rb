@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   post '/user_invitations/remove', to: 'user_invitations#remove'
 
+  # Route to wake up Heroku
   get '/wakeup', to: 'auth#wakeup'
   
 end
