@@ -9,25 +9,24 @@ Rails.application.routes.draw do
   resources :leagues, only: [:index]
   resources :users
 
-  post '/signup', to: 'users#signup'
-  post '/login', to: 'auth#login'
+  post "/signup", to: "users#signup"
+  post "/login", to: "auth#login"
 
-  get '/friends/:id', to: 'users#friends'
-  post '/friendships/remove', to: 'friendships#remove'
+  get "/friends/:id", to: "users#friends"
+  post "/friendships/remove", to: "friendships#remove"
 
-  get '/leagues/popular', to: 'leagues#popular'
-  get '/leagues/international', to: 'leagues#international'
+  get "/leagues/popular", to: "leagues#popular"
+  get "/leagues/international", to: "leagues#international"
 
-  post '/favLeagues/add', to: 'user_leagues#create'
-  delete '/favLeagues/remove/:id', to: 'user_leagues#destroy'
+  post "/favLeagues/add", to: "user_leagues#create"
+  delete "/favLeagues/remove/:id", to: "user_leagues#destroy"
 
-  post 'fixtures/date', to: 'api_calls#fixtures_by_date'
+  post "fixtures/date", to: "api_calls#fixtures_by_date"
 
-  patch '/uploadAvatar/:id', to: 'users#upload_avatar'
+  patch "/uploadAvatar/:id", to: "users#upload_avatar"
 
-  post '/user_invitations/remove', to: 'user_invitations#remove'
+  post "/user_invitations/remove", to: "user_invitations#remove"
 
   # Route to wake up Heroku
-  get '/wakeup', to: 'auth#wakeup'
-  
+  get "/wakeup", to: "auth#wakeup"
 end
