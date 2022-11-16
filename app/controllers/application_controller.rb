@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::API
   before_action :authorized
+  skip_before_action :authorized, only: [:homepage]
+
+  def homepage
+    render html: "FutFriends API Live"
+  end
 
   def encode_token(payload)
     JWT.encode(payload, "Secret", "HS256")

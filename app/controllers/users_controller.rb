@@ -9,17 +9,17 @@ class UsersController < ApplicationController
         :invitations,
         :watchparties,
         :friends => {
-          except: [:created_at, :updated_at, :password_digest]
+          except: [:created_at, :updated_at, :password_digest],
         },
         :user_leagues => {
           only: [:id],
-          include: [:league]
-        }
+          include: [:league],
+        },
       ]
   end
 
   def show
-    user = User.find_by( id: params[:id] )
+    user = User.find_by(id: params[:id])
 
     render json: user,
       except: [:created_at, :updated_at, :password_digest],
@@ -27,38 +27,39 @@ class UsersController < ApplicationController
         :invitations,
         :watchparties,
         :friends => {
-          except: [:created_at, :updated_at, :password_digest]
+          except: [:created_at, :updated_at, :password_digest],
         },
         :user_leagues => {
           only: [:id],
           include: [
-            :league => { except: [:created_at, :updated_at] }
-          ]
+            :league => { except: [:created_at, :updated_at] },
+          ],
         },
       ]
   end
-  
+
   def update
-    user = User.find_by( id: params[:id] )
-    
+    user = User.find_by(id: params[:id])
+
     if user
       user.update(update_params)
       render json: user,
-        except: [:created_at, :updated_at, :password_digest],
-        include: [
-          :invitations,
-          :watchparties,
-          :friends => {
-            except: [:created_at, :updated_at, :password_digest]
-          },
-          :user_leagues => {
-            only: [:id],
-            include: [
-              :league => { except: [:created_at, :updated_at] }
-            ]
-          }]
+             except: [:created_at, :updated_at, :password_digest],
+             include: [
+               :invitations,
+               :watchparties,
+               :friends => {
+                 except: [:created_at, :updated_at, :password_digest],
+               },
+               :user_leagues => {
+                 only: [:id],
+                 include: [
+                   :league => { except: [:created_at, :updated_at] },
+                 ],
+               },
+             ]
     else
-      render json: { error: 'user not found' }
+      render json: { error: "user not found" }
     end
   end
 
@@ -70,19 +71,20 @@ class UsersController < ApplicationController
       token = encode_token({ user_id: user.id })
 
       render json: { user: user, token: token },
-        except: [:created_at, :updated_at, :password_digest],
-        include: [
-          :invitations,
-          :watchparties,
-          :friends => {
-            except: [:created_at, :updated_at, :password_digest]
-          },
-          :user_leagues => {
-            only: [:id],
-            include: [
-              :league => { except: [:created_at, :updated_at] }
-            ]
-          }]
+             except: [:created_at, :updated_at, :password_digest],
+             include: [
+               :invitations,
+               :watchparties,
+               :friends => {
+                 except: [:created_at, :updated_at, :password_digest],
+               },
+               :user_leagues => {
+                 only: [:id],
+                 include: [
+                   :league => { except: [:created_at, :updated_at] },
+                 ],
+               },
+             ]
     else
       render json: { error: user.errors }
     end
@@ -99,19 +101,20 @@ class UsersController < ApplicationController
       user.update(profile_img: photo)
 
       render json: user,
-        except: [:created_at, :updated_at, :password_digest],
-        include: [
-          :invitations,
-          :watchparties,
-          :friends,
-          :user_leagues => {
-            only: [:id],
-            include: [
-              :league => { except: [:created_at, :updated_at] }
-            ]
-          }]
+             except: [:created_at, :updated_at, :password_digest],
+             include: [
+               :invitations,
+               :watchparties,
+               :friends,
+               :user_leagues => {
+                 only: [:id],
+                 include: [
+                   :league => { except: [:created_at, :updated_at] },
+                 ],
+               },
+             ]
     else
-      render json: { message: 'user could not be found'}
+      render json: { message: "user could not be found" }
     end
   end
 
@@ -122,7 +125,6 @@ class UsersController < ApplicationController
   end
 
   def update_params
-      params.require(:user).permit(:name, :username, :avatar)
+    params.require(:user).permit(:name, :username, :avatar)
   end
-
 end

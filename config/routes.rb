@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "application#homepage"
+
   resources :teams
   resources :user_invitations
   resources :invitations
