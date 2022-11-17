@@ -27,11 +27,6 @@ class AuthController < ApplicationController
     end
   end
 
-  # End point to wake up Heroku
-  def wakeup
-    render json: { message: "Heroku: I am awake" }
-  end
-
   private
 
   def login_params
