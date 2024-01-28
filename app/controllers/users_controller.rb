@@ -90,7 +90,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # uploads the avatar to the user
+  # uploads the avatar to User
   def upload_avatar
     user = User.find_by(id: params[:id])
 

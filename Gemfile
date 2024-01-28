@@ -1,53 +1,55 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.1'
+ruby "3.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0', '>= 7.0.2.3'
+gem "rails", "~> 7.0", ">= 7.0.2.3"
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
-gem 'puma', '~> 5.1.1'
+gem "puma", "~> 5.1.1"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7"
 
 # Using rest client for making API calls
-gem 'rest-client'
+gem "rest-client"
 # Using JSON to parse json
-gem 'json'
+gem "json"
 # Using JSON WEB TOKENS for authenntication
-gem 'jwt'
+gem "jwt"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem "bootsnap", ">= 1.4.2", require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors'
+gem "rack-cors"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
-  gem 'listen', '~> 3.2'
+  gem "listen", "~> 3.2"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem "spring"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Enables dotEnv variables
-gem 'dotenv-rails'
+gem "dotenv-rails"
 
 # Integrate with AWS S3 in this case to store photos
-gem 'aws-sdk-s3', require: false
+gem "aws-sdk-s3", require: false
+gem "matrix", "~> 0.4.2"
+gem "net-ftp"
